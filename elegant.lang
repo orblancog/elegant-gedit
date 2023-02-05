@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  Author  : blanco-garcia <oscar.roberto-blanco.garcia@synchrotron-soleil.fr>
+  Version : 0.1
+  Date    : 2022/oct/26
+
+  Copyright (C) 2022 blanco-garcia
+
+ This library is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Library General Public
+ License as published by the Free Software Foundation; either
+ version 2 of the License, or (at your option) any later version.
+ This library is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Library General Public License for more details.
+ You should have received a copy of the GNU Library General Public
+ License along with this library; if not, write to the
+ Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+ Boston, MA 02111-1307, USA.
+-->
+
+<!--
+  put in ~/.local/share/gtksourceview-2.0/language-specs/elegant.lang
+   or in ~/.local/share/gtksourceview-3.0/language-specs/elegant.lang
+-->
+
+
+   <!--  example
+        <context id="key" style-ref="key">
+          <match extended="true">
+            (?&lt;![\w\d/._-])
+            ([:&amp;][\w\d_-]+)
+            (?![\w\d_-])
+          </match>
+        </context>
+          -->
+
+<language id="elegant" name="elegant" version="2.0" _section="Script">
+  <metadata>
+    <property name="mimetypes">text/x-c;text/x-csrc</property>
+    <property name="globs">*.ele;*.lte</property>
+  </metadata>
+  <styles>
+    <style id="comment" name="Comment" map-to="def:comment"/>
+    <style id="string" name="String" map-to="def:string"/>
+    <style id="char" name="Character" map-to="def:character"/>
+    <style id="keyword" name="Keyword" map-to="def:keyword"/>
+    <style id="escaped-character" name="Escaped Character" map-to="def:special-char"/>
+  </styles>
+  <definitions>
+    <context id="elegant">
+      <include>
+
+        <context id="comment" style-ref="comment">
+          <start>!</start>
+          <end>$</end>
+        </context>
+
+        <context id="string" end-at-line-end="true" style-ref="string">
+          <start>"</start>
+          <end>"</end>
+          <include>
+            <context id="escape" style-ref="escaped-character">
+              <match>\\.</match>
+            </context>
+          </include>
+        </context>
+
+        <context id="char" end-at-line-end="true" style-ref="string">
+          <start>'</start>
+          <end>'</end>
+          <include>
+            <context ref="escape"/>
+          </include>
+        </context>
+
+        <context ref="def:decimal"/>
+        <context ref="def:float"/>
+
+        <context id="keyword" style-ref="keyword">
+          <match extended="true"> ([&amp;]
+            (end|
+             run_setup|
+             run_control|
+             alter_elements|
+             amplification_factors|
+             analyze_map|
+             aperture_data|
+             bunched_beam|
+             bunched_beam_moments|
+             change_particle|
+             change_start|
+             chaos_map|
+             chromaticity|
+             closed_orbit|
+             correct|
+             correction_matrix_output|
+             correct_tunes|
+             coupled_twiss_output|
+             divide_elements|
+             elastic_scattering|
+             error_element|
+             error_control|
+             find_aperture|
+             floor_coordinates|
+             frequency_map|
+             global_settings|
+             ignore_elements|
+             inelastic_scattering|
+             insert_elements|
+             insert_sceffects|
+             ion_effects|
+             linear_chromatic_tracking_setup|
+             link_control|
+             link_elements|
+             load_parameters|
+             matrix_output|
+             modulate_elements|
+             moments_output|
+             momentum_aperture|
+             obstruction_data|
+             optimize|
+             optimization_covariable|
+             optimization_setup|
+             optimization_term|
+             optimization_variable|
+             parallel_optimization_setup|
+             print_dictionary|
+             ramp_elements|
+             replace_elements|
+             rf_setup|
+             rpn_expression|
+             rpn_load|
+             run_control|
+             run_setup|
+             sasefel|
+             save_lattice|
+             sdds_beam|
+             semaphores|
+             set_reference_particle_output|
+             slice_analysis|
+             subprocess|
+             steering_element|
+             transmute_elements|
+             touschek_scatter|
+             tune_footprint|
+             twiss_analysis|
+             twiss_output|
+             track|
+             tune_shift_with_amplitude|
+             vary_element)
+          )
+          </match>
+        </context>
+      </include>
+    </context>
+  </definitions>
+</language>
+
